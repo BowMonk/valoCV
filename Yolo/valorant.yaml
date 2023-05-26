@@ -1,0 +1,14 @@
+path: ../datasets
+test: test/images
+train: train/images
+val:  valid/images
+roboflow:
+  license: BY-NC-SA 4.0
+  project: valorant-object-detection2
+  url: https://universe.roboflow.com/aimbot-creators/valorant-object-detection2/dataset/4
+  version: 4
+  workspace: aimbot-creators
+nc: 2
+names:
+- enemyBody
+- enemyHead
