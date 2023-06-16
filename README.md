@@ -473,7 +473,9 @@ the object detections from YOLO instead.
 The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
 
 
- <video loop src="videos/Dino.mp4">  video </video> 
+<video src="https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60" controls autoplay loop style="max-width: 730px;"></video>
+
+
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
