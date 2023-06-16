@@ -295,17 +295,24 @@ pipeline to ensure optimal performance of the model on the task at hand.
 
 ---
 
-### GroundingDINO and SAM
+### GroundingDINO and SAM [2][3]
 
 <p align="center">
-  <img src="images/grounding_dino.png" alt="Grounding Dino">
+  <img src="pics/dino_arch.png" alt="Yolo Im">
 </p>
 
-
-
-
 #### Description
+GroundingDINO is a novel zero-shot object detection model that has great performance in existing datasets.
+It is a combination of many different sections coming together to make a great framework mainly used for annotation
+and segmentation, in conjunction with SAM.
 
+SAM(Segment Anything Model) is a recent AI model developed by Meta. It focuses on image segmentation
+and in conjunction with GroundingDINO, it makes for a nice pipeline to detect and create masks for objects 
+in view.
+
+For more information on this specific use case of GroundingDINO and SAM, this Medium article does a great job at giving 
+more information: https://pub.towardsai.net/grounding-dino-achieving-sota-zero-shot-learning-object-detection-78388d6842ed.
+It is also the source of the architecture image shown above.
 #### Annotations
 The annotations of the datasets we used are not very compatible with GroundingDINO and SAM. The annotations are small boxes which fit well with the detection style of YOLO and are seemingly annotated with that in mind.
 However, we had trouble getting GroundingDINO to get a similar detection style, simply because it does not use the same grid system that YOLO uses, and the textual prompts trying to isolate some areas do not work well all the time.
@@ -326,6 +333,8 @@ Some examples of this annotation can be seen below:
 <img src='pics/annotation_example_4.png' height='200'>
 <p>
 
+To make the annotations usable for training and evaluation, they had to be converted to a format that we were already using.
+The steps shown at https://github.com/Tony607/labelme2coco were followed to turn the annotations into COCO data formatted JSON.
 #### Training
 
 As GroundingDINO is fairly new (March 2023), the training pipeline for it is not released yet. With the resources
@@ -341,10 +350,9 @@ unclear.
 The biggest influence when it comes to detection was coming from the text and box confidence threshold parameters.
 These are passed to the model before it does detections to decide what is good enough as a detection. How we decided
 on what is a best threshold was with a simple search with MAP evaluation on the first dataset (the best performing thresholds were chosen).
-This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresolds higher than 0.45 were eliminating too many clear cases)
+This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresholds higher than 0.45 were eliminating too many clear cases)
 In the end, the best performing cases were around 0.4 to 0.45, however there were many more cases with no detections.
 So instead we settled on 0.35 for both with an MAP of 0.803, as it detected nearly all cases.
-
 
 ### Offline Evaluation
 
@@ -389,6 +397,17 @@ DINO was much better at detecting the general body, which is understandable as t
 harder to detect due to the smaller amount of pixels.
 The model in general has low recall but higher precision, with overall not a great performance, much less than we expected.
 
+In the pictures below you can see some examples of the annotations (on the left) and predictions of DINO + masking of SAM(on the right).
+<p align="center">
+<img src='pics/result_anno_1.jpg' width='300'>
+<img src='pics/result_pred_1.jpg' width='300'>
+<p >
+
+<p align="center">
+<img src='pics/result_anno_2.jpg' width='300'>
+<img src='pics/result_pred_2.jpg' width='300'>
+<p >
+
 ##### Online performance
 
 When it comes to online performance, our main measure is delay during the real-time detection.
@@ -396,20 +415,63 @@ When it comes to online performance, our main measure is delay during the real-t
 Sadly, GroundingDINO and SAM performed quite poorly.
 The average delay of detecting object per frame was around 1.11202 seconds. That is a very long time, even for a 30 FPS video.
 In a real gaming environment, FPS in shooter games is quite important, and having a bot that can shoot every 65 frames or so
-if the gaming is running at 60 FPS, is quite bad.
+if the gaming is running at 60 FPS, is quite bad. This performance was slightly improved when SAM was taken out of the picture,
+however DINO on its own was still slow.
 
 Despite this, when it comes to accuracy it performed similarly to the offline setting in general accuracy, having difficulty 
 with the Head class and consistently detecting the Person/Body class with a slight boost, due to less distance from the 
 camera to the enemies in the shooting range.
 
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
-for the boxes (the rest of the annotation took a considerable amount of time). 
+for the boxes (the rest of the annotation took a considerable amount of time).
+
+You can click on the "Made with clipchamp" button below to see the performance of GroundingDINO (it is a bit worse than the actual performance
+due to the recording)
+
+<div style="position:relative;width:fit-content;height:fit-content;">
+            <a style="position:absolute;top:20px;right:1rem;opacity:0.8;" href="https://clipchamp.com/watch/mpzngBMAgzz?utm_source=embed&utm_medium=embed&utm_campaign=watch">
+                <img style="height:22px;" src="https://clipchamp.com/e.svg" alt="Click me" />
+            </a>
+            <iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
+        </div>
+
+## Discussion
+
+The results we got from this study were not what we were expecting, however we do believe to have shown some clear differences between 
+GroundingDINO + SAM and YOLO. 
+
+Although we expected GroundingDINO to perform worse in the task of object detection due to the inability to train it properly compared to 
+YOLO, we did not expect the issues with real-time detection spawning from the computational demands it has. 
+Because of the slow speed, it cannot be properly used for real-time object detection in the context of first-person shooters (running on single GPUs).
+
+However, there could be other factors that have affected the speed of the computations.
+
+We did not tinker much with the extra operations that GroundingDINO is doing under the hood, as the model is quite complex and would require
+quite some time to properly change.
+For a proper application of this, DINO+SAM could be running on multiple GPUs, however that seems quite an investment for something that could 
+be achieved through other models(YOLO) with more accuracy and speed. 
+
+We tried to make the procedure of annotation readings (for the dots) as fast as possible to reduce load, however we noticed that it did not affect
+the overall speed, as on its own it ran with no visible delay.
+
+In the end, YOLO seems to remain the most efficient way to conduct real-time object detection, and specifically in first person shooters.
+
+### Future work and things we couldn't wrap up
+
+The main thing we were hoping would separate DINO+SAM from YOLO, would be the use of the segmentation masks from SAM to create some noise in 
+the aiming input of a bot. This would make the aiming feel more natural, as current metadata scraping bots are quite "robotic" in their actions.
+With the possibility of using the bounds of the segmentation mask as constraints for noise distribution edges, this could create some more "believable" bots.
+
+However, seeing the performance of DINO, we are unable to properly make do this study, as it would take a long time to analyse the difference between a point
+and click approach, and a noise addition through the proposed pipeline.
 
 
+Throughout this study we have however come up with a (possibly) better suggestion that fits the use case of all the mentioned models better.
+We could use GroundingDINO for automatic annotation of data, which will then be used to train YOLO for increased object detection performance, and later adapting SAM to work with
+the object detections from YOLO instead.
 
+The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
 
-
-https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
 
 
 
@@ -419,3 +481,5 @@ https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cdd
 **References**
 
 [1] Redmon, Joseph & Divvala, Santosh & Girshick, Ross & Farhadi, Ali. (2016). You Only Look Once: Unified, Real-Time Object Detection. 779-788. 10.1109/CVPR.2016.91.
+[2] https://segment-anything.com/
+[3] https://github.com/IDEA-Research/Grounded-Segment-Anything
