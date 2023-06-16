@@ -30,10 +30,10 @@ In the following sections, we will detail how these datasets were utilized for t
 ### Resources
 The experiments were done on two separate CPUs and GPUs. 
 
-| Experiment Model       | CPU                   | GPU |
-|------------------------|-----------------------| --- |
-| **YOLO**                   | Intel Core I5 12-600k | NVIDIA RTX 3070 |
-| **Grounding Dina and SEM** | Intel Core I9 12-900k | NVIDIA RTX 3070TI |
+| Experiment Model       | CPU                      | GPU |
+|------------------------|--------------------------| --- |
+| **YOLO**                   | Intel Core I5 12-600k    | NVIDIA RTX 3070 |
+| **Grounding Dina and SEM** | Intel Core I9 11-11900KF | NVIDIA RTX 3070TI |
 
 
 
@@ -415,12 +415,12 @@ Before diving into diving metrics, it is nice to look at  sample predictions in 
 
 <p align="center">
     <b>Ground Truth</b><br>
-    <img src="Yolo/yolov5/runs/train/exp11/val_batch2_labels.jpg">
+    <img src="images/badpics/val_batch2_labels.jpg">
 </p>
 
 <p align="center">
     <b>Predictions</b><br>
-    <img src="Yolo/yolov5/runs/train/exp11/val_batch2_pred.jpg">
+    <img src="images/badpics/val_batch2_pred.jpg">
 </p>
 
 At first glance, it seems the Yolo was successfully able to predict perfectly from this batch. However, it is not 
