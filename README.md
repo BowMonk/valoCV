@@ -587,22 +587,17 @@ In summary, when it comes to real-time object detection tasks, particularly with
 
 Nevertheless, Dino's inherent accuracy and versatility cannot be overlooked. Even though it is still in its nascent stages, the model demonstrates substantial potential for future applications in real-time computer vision. The journey of Dino is certainly one to watch as the field of computer vision continues to evolve and innovate.
 
-### Future work and things we couldn't wrap up
+### Future Directions and Uncompleted Objectives
 
-The main thing we were hoping would separate DINO+SAM from YOLO, would be the use of the segmentation masks from SAM to create some noise in 
-the aiming input of a bot. This would make the aiming feel more natural, as current metadata scraping bots are quite "robotic" in their actions.
-With the possibility of using the bounds of the segmentation mask as constraints for noise distribution edges, this could create some more "believable" bots.
+Our initial goal was to distinguish DINO+SAM from YOLO by utilizing the segmentation masks from SAM to inject variability in the bot's aiming input. The intention was to provide the bot with a less mechanical appearance, an issue that is prevalent among current metadata scraping bots. We envisioned using the boundaries of the segmentation mask as constraints for the noise distribution, which we hypothesized would lead to more realistic bots.
 
-However, seeing the performance of DINO, we are unable to properly make do this study, as it would take a long time to analyse the difference between a point
-and click approach, and a noise addition through the proposed pipeline.
+Regrettably, due to the performance of DINO, the feasibility of this study became challenging. Conducting a thorough analysis comparing a basic point-and-click approach with the addition of noise via our proposed method proved to be a time-consuming endeavor.
 
-Throughout this study we have however come up with a (possibly) better suggestion that fits the use case of all the mentioned models better.
-We could use GroundingDINO for automatic annotation of data, which will then be used to train YOLO for increased object detection performance, and later adapting SAM to work with
-the object detections from YOLO instead. The segmentation masks should work the same, 
-however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
+Despite these challenges, the course of this study led us to conceive an alternative, potentially superior approach that could better leverage all the models discussed. Our proposition entails using GroundingDINO for automated data annotation, which could then be utilized for training YOLO, thereby enhancing object detection performance. Following this, SAM could be adjusted to cooperate with the object detections made by YOLO. It's important to note that while the segmentation masks should remain operative, the compatibility of the text prompt functionality that integrates well with DINO might be compromised in this new setup.
 
+Moving forward, the directions for future work could encompass a deeper examination of DINO's performance and the issues we encountered. Future research should also evaluate the effectiveness of the proposed integration of GroundingDINO, YOLO, and SAM, comparing its performance against the original DINO+SAM approach. Efforts could be made to develop hybrid segmentation techniques, combining the strengths of various models to provide more reliable and effective object detection and segmentation.
 
-
+Continuing our initial intention, we recommend further exploration into methods of noise introduction to the bot's aiming input to enhance the naturalness of its actions. As the textual prompt functionality may not be possible with the new approach, alternative techniques to emulate this functionality could be an intriguing research direction. Lastly, efforts to optimize the training of YOLO with GroundingDINO's automatic data annotation may result in improved object detection performance and efficiency. Following successful implementation and evaluation, it would be beneficial to investigate the adaptability of this new approach to other use cases or scenarios.
 
 
 ## Tags
