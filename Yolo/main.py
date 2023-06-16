@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import List, Tuple, Optional
 from dataclasses_json import dataclass_json
 from supervision import Detections
-
+import imageio
 
 @dataclass_json
 @dataclass
@@ -117,6 +117,9 @@ def main():
 
 	counter = 0
 
+	# Initialize a list to hold the frames for the GIF
+	# frames = []
+
 	# Original dimensions of the image
 	width_orig = 1280  # replace with your value
 	height_orig = 720  # replace with your value
@@ -175,7 +178,7 @@ def main():
 
 			cv2.circle(frame, (x1, y1), radius=6, color=(255, 0, 0),
 					   thickness=2)  # Increased radius and changed color to blue
-			# cv2.putText(frame, f'{label}:', (x1, y1 - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+			cv2.putText(frame, f'{label}:', (x1, y1 - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
 
 			x1, y1, x2, y2 = [int(coord) for coord in xyxy]
 			center_x, center_y = (x1 + x2) // 2, (y1 + y2) // 2
@@ -212,6 +215,10 @@ def main():
 
 
 		cv2.imshow('YOLOv5 Video', frame)
+
+		frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+		# frames.append(frame_rgb)
+
 		counter += 1
 
 		if cv2.waitKey(5) & 0xFF == ord('q'):
@@ -224,6 +231,8 @@ def main():
 	total_enemies = len(identified_enemies)
 	accuracy = correct_detection_count / total_enemies if total_enemies > 0 else 0
 	print(f"Accuracy of head detection for distinct enemies: {accuracy}")
+
+	# imageio.mimsave('live_yolo.gif', frames, duration=30)
 
 
 # # Compute the delay in frames between head and body detection
