@@ -411,7 +411,7 @@ for the boxes (the rest of the annotation took a considerable amount of time).
 
 https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
 
-
+ <video loop src="videos/Dino.mp4">  video </video> 
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
