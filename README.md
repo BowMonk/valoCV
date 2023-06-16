@@ -14,12 +14,16 @@ We chose Valorant, a popular first-person shooter game by Riot Games, as our tes
 
 ### Methodology
 
-Our prime objective is to examine how the combination of SAM+GroundingDINO fares against the conventional YOLO model. SAM (developed by Meta) is an object segmentation model, whereas GroundingDINO is a zero-shot object detection model. This combination, we believe, can provide enhanced robustness in accuracy and behavior masking to vision-based bots.
-For our experiment, we used pre-annotated labels and training/test images from roboflow publicly available datasets
-:https://universe.roboflow.com/valorantobjectdetection/valo-1h0lc, https://universe.roboflow.com/project-nqyj3/valorant-f3198, 
-https://universe.roboflow.com/alfin-scifo/santyasa/dataset.   In the upcoming section we will explain how we used
-these datasets for training and validation.
 
+Our prime objective is to examine how the combined SAM+GroundingDINO model stacks up against the traditional YOLO model. SAM, an object segmentation model developed by Meta, coupled with GroundingDINO, a zero-shot object detection model, is a promising combination. We hypothesize that this could provide improved accuracy and robust behavior masking for vision-based bots.
+
+For our experiment, we leveraged pre-annotated labels and training/test images from publicly available datasets on Roboflow. These datasets include:
+
+- [Valorant Object Detection](https://universe.roboflow.com/valorantobjectdetection/valo-1h0lc)
+- [Project Valorant](https://universe.roboflow.com/project-nqyj3/valorant-f3198)
+- [Santyasa Dataset](https://universe.roboflow.com/alfin-scifo/santyasa/dataset)
+
+In the following sections, we will detail how these datasets were utilized for training and validating our models.
 
 
 #### Datasets
