@@ -317,14 +317,14 @@ For this annotation procedure we used labelme (the package can be installed thro
 Some examples of this annotation can be seen below:
 
 <p align="center">
-<img src='pics/annotation_example_1.png' width='300'>
-<img src='pics/annotation_example_2.png' width='300'>
-<p >
+<img src='pics/annotation_example_1.png' height='200'>
+<img src='pics/annotation_example_2.png' height='200'>
+<p>
 
 <p align="center">
-<img src='pics/annotation_example_3.png' width='300'>
-<img src='pics/annotation_example_4.png' width='300'>
-<p >
+<img src='pics/annotation_example_3.png' height='200'>
+<img src='pics/annotation_example_4.png' height='200'>
+<p>
 
 #### Training
 
