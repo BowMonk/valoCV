@@ -17,6 +17,7 @@ We chose Valorant, a popular first-person shooter game by Riot Games, as our tes
 
 Our prime objective is to examine how the combined SAM+GroundingDINO model stacks up against the traditional YOLO model. SAM, an object segmentation model developed by Meta, coupled with GroundingDINO, a zero-shot object detection model, is a promising combination. We hypothesize that this could provide improved accuracy and robust behavior masking for vision-based bots.
 
+
 For our experiment, we leveraged pre-annotated labels and training/test images from publicly available datasets on Roboflow. These datasets include:
 
 - [Valorant Object Detection](https://universe.roboflow.com/valorantobjectdetection/valo-1h0lc)
@@ -155,7 +156,43 @@ One might question our decision to use a wide range of image qualities, rather t
 This not only enriched our training data but also aimed to enhance YOLO's generalization performance on the test set,
 crafting a more robust model ready to tackle different angles one might encounter in Valorant.
 
+### GroundingDINO and SAM
+#### Annotations
+The annotations of the datasets we used are not very compatible with GroundingDINO and SAM. The annotations are small boxes which fit well with the detection style of YOLO and are seemingly annotated with that in mind.
+However, we had trouble getting GroundingDINO to get a similar detection style, simply because it does not use the same grid system that YOLO uses, and the textual prompts trying to isolate some areas do not work well all the time.
 
+To make sure that the datasets were useful for both sides, we manually annotated the datasets, except for the third one as it was too noisy to make consistent decisions on annotating.
+For this annotation procedure we used labelme (the package can be installed through pip), and manually annotated boxes that would fit GroundingDINOs detection style.
+Some examples of this annotation can be seen below:
+
+<p align="center">
+<img src='pics/annotation_example_1.png' width='300'>
+<img src='pics/annotation_example_2.png' width='300'>
+<p >
+
+<p align="center">
+<img src='pics/annotation_example_3.png' width='300'>
+<img src='pics/annotation_example_4.png' width='300'>
+<p >
+
+#### Training
+
+As GroundingDINO is fairly new (March 2023), the training pipeline for it is not released yet. With the resources
+available online, at the moment we are only able to change our labels and tune some thresholds.
+
+When it comes to labels, DINO can handle complex label prompts such as "man sitting on a chair", however it has a lot 
+of false positives when it comes to objects that it is not properly tuned for. This was made apparent quite quickly when 
+we started to mess around with labels as results would change even depending on what other labels were included, for 
+example, some false positives for the label "head" would disappear if the model was also prompted to detect "shoe". This
+had something to do with the confidence thresholds in-place, however the exact reason for these changes is still a bit 
+unclear.
+
+The biggest influence when it comes to detection was coming from the text and box confidence threshold parameters.
+These are passed to the model before it does detections to decide what is good enough as a detection. How we decided
+on what is a best threshold was with a simple search with MAP evaluation on the first dataset (the best performing thresholds were chosen).
+This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresolds higher than 0.45 were eliminating too many clear cases)
+In the end, the best performing cases were around 0.4 to 0.45, however there were many more cases with no detections.
+So instead we settled on 0.35 for both with an MAP of 0.803, as it detected nearly all cases.
 
 ### Offline Evaluation
 
@@ -178,6 +215,43 @@ Through this experiment, we aim to answer the following questions:
 - Can SAM+GroundingDINO outperform YOLO in a dynamic first-person shooter game like Valorant?
 
 Our study aims to shed light on the applications of advanced computer vision techniques in gaming, specifically first-person shooters. By comparing different object detection architectures, we hope to contribute to the ongoing development of fair and ethical gaming practices.
+
+### Results
+
+#### GroundingDINO and SAM
+
+The results for GroundingDINO and SAM are with respect to their offline performance on dataset 1 + 2, and also the 
+online performance on dataset 4.
+
+##### Offline performance
+
+Table I
+
+|    Class    |   MAP   |   AP    | Recall  | Precision | F1_Score |
+|:-----------:|:-------:|:-------:|:-------:|:---------:|:--------:|
+|    Head     | 0.62811 | 0.32946 | 0.27487 |  0.67112  | 0.39001  |
+| Person/Body | 0.62811 | 0.92677 | 0.49863 |  0.97919  | 0.66077  |
+
+At first glance, the most noticeable thing is the disparity between the AP (Average Precision) between the Head and Person/Body classes.
+DINO was much better at detecting the general body, which is understandable as the head has less detail and is generally
+harder to detect due to the smaller amount of pixels.
+The model in general has low recall but higher precision, with overall not a great performance, much less than we expected.
+
+##### Online performance
+
+When it comes to online performance, our main measure is delay during the real-time detection.
+
+Sadly, GroundingDINO and SAM performed quite poorly.
+The average delay of detecting object per frame was around 1.11202 seconds. That is a very long time, even for a 30 FPS video.
+In a real gaming environment, FPS in shooter games is quite important, and having a bot that can shoot every 65 frames or so
+if the gaming is running at 60 FPS, is quite bad.
+
+Despite this, when it comes to accuracy it performed similarly to the offline setting in general accuracy, having difficulty 
+with the Head class and consistently detecting the Person/Body class with a slight boost, due to less distance from the 
+camera to the enemies in the shooting range.
+
+The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
+for the boxes (the rest of the annotation took a considerable amount of time). 
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
