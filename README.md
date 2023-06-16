@@ -473,7 +473,7 @@ the object detections from YOLO instead.
 The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
 
 
-
+ <video loop src="videos/Dino.mp4">  video </video> 
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
