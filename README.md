@@ -478,7 +478,7 @@ accuracy was also calculated by checking if the ground truth was inside the pred
 is not only fast but also very accurate. Similarly, recall and precision was also 1 since it was able to completely predict the ground truth.
 
 
-The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream:
+The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream (it is very slow, but not stuck):
 <p align="center">
   <img src="live_yolo.gif" alt="Online Performance">
   <br>
@@ -564,12 +564,9 @@ The findings from our exploration presented us with some unexpected turns. Nonet
 
 We began the investigation with the presumption that GroundingDINO might struggle a bit with object detection, especially in light of the challenges we faced during its training compared to YOLO. However, what took us by surprise was the real-time detection complications, a by-product of the model's computational demands. As a result, GroundingDINO fell short of the mark when it came to real-time object detection in the arena of first-person shooters on a single GPU setup, primarily due to its slow speed. 
 
-Nevertheless, it's worth mentioning that the model's computation speed could have been influenced by other factors. A glimpse into these can be viewed here: [GitHub Link](https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60)
-
+Nevertheless, it's worth mentioning that the model's computation speed could have been influenced by other factors.
 In our quest to understand the model better, we shied away from tampering with the numerous intricate operations GroundingDINO undertakes. Tailoring this model to perfection is a time-intensive process. A possible solution could be to run DINO+SAM on multiple GPUs, although that would be a significant commitment for something that other models, like YOLO, can deliver with greater accuracy and speed.
 In our effort to maximize efficiency, we optimized the procedure of annotation readings to lessen the workload. Unfortunately, this adjustment didn't impact the overall speed noticeably, as the standalone procedure ran without any noticeable delay.
-
-
 
 ## Conclusion
 
