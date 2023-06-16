@@ -478,7 +478,7 @@ accuracy was also calculated by checking if the ground truth was inside the pred
 is not only fast but also very accurate. Similarly, recall and precision was also 1 since it was able to completely predict the ground truth.
 
 
-The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream (it is very slow, but not stuck):
+The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream:
 <p align="center">
   <img src="live_yolo.gif" alt="Online Performance">
   <br>
@@ -548,7 +548,7 @@ camera to the enemies in the shooting range.
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
 for the boxes (the rest of the annotation took a considerable amount of time).
 
-The following gif shows you the performance of Dino on the video of dataset 4 loaded as a stream:
+The following gif shows you the performance of Dino on the video of dataset 4 loaded as a stream (it is very slow, but not stuck):
 <p align="center">
   <img src="dino_live.gif" alt="Online Performance">
   <br>
