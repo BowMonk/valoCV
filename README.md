@@ -148,7 +148,7 @@ The use of these points will be detailed further in the online evaluation sectio
 #### Comparison
 
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
-of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
+of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SEM as we will explain in the next sections.
 
 ## Yolo
 
