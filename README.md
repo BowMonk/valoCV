@@ -15,17 +15,98 @@ We chose Valorant, a popular first-person shooter game by Riot Games, as our tes
 ### Methodology
 
 Our prime objective is to examine how the combination of SAM+GroundingDINO fares against the conventional YOLO model. SAM (developed by Meta) is an object segmentation model, whereas GroundingDINO is a zero-shot object detection model. This combination, we believe, can provide enhanced robustness in accuracy and behavior masking to vision-based bots.
-
-For our experiment, we used pre-annotated labels and training/test images from roboflow publicly available datasets:https://universe.roboflow.com/valorantobjectdetection/valo-1h0lc, https://universe.roboflow.com/project-nqyj3/valorant-f3198, https://universe.roboflow.com/alfin-scifo/santyasa/dataset. Do note that all these datasets contain different labels and different quality of images, however
+For our experiment, we used pre-annotated labels and training/test images from roboflow publicly available datasets
+:https://universe.roboflow.com/valorantobjectdetection/valo-1h0lc, https://universe.roboflow.com/project-nqyj3/valorant-f3198, 
+https://universe.roboflow.com/alfin-scifo/santyasa/dataset.   In the upcoming section we will explain how we used
+these datasets for training and validation.
 
 
 #### Yolo
+Do note that all these datasets contain different labels with different quality of images. Here are some random examples of all 3 datasets that was used to train Yolo
+
+#### Dataset 1
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset1/11.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/12.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/13.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset1/14.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/15.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/16.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset1/17.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/18.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset1/19.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+  </tr>
+
+</table>
+</div>
 
 
-and 
-This setup enables SAM and GroundingDINO to identify and target areas with higher accuracy due to color labeling.  
+<br>
+<br>
 
-### Evaluation
+#### Dataset2
+
+
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset2/21.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/22.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/23.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset2/24.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/25.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/26.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset2/27.jpg" width="200px" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/28.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset2/29.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+  </tr>
+
+</table>
+</div>
+
+<br>
+<br>
+
+#### Dataset3
+
+
+<div align="center">
+<table>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset3/31.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/32.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/33.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset3/34.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/35.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/36.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="#"><img src="images/dataset3/37.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/38.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
+    <td align="center"><a href="#"><img src="images/dataset3/39.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+  </tr>
+
+</table>
+</div>
+
+It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
+of dataset 1 and 2 due to its resolution but for Yolo we decided to use the whole dataset to determine if the model can succesfully learn 
+even if the images are quite different in resolution. Moreover, adding such images to the training set has the effect of adding noise which allows
+for better generalization performance on the test set. 
+
+### Offline Evaluation
 
 The key to any comparative study lies in its evaluation metrics. We use Mean Average Precision (MAP), Precision, Recall, and F1 score as our key metrics to evaluate the performance of the models:
 
