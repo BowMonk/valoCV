@@ -387,9 +387,12 @@ Do note that **accuracy** was not considered due to the several reasons:
 
 ### Online Evaluation
 In the fast-paced world of online gaming, real-time performance is critical. We're testing our system on two key parameters – accuracy in head classification and inference speed.
-For accuracy, we're using annotated videos from Dataset 4, comparing our system's detection with ground truth frames. It's a real-time check on whether our system accurately recognizes heads in live gaming.
-For speed, we're timing how quickly our model predicts based on each frame. We also account for any target movement during this prediction time.
-So, we're essentially striving to ensure our system can accurately and swiftly detect dynamic movements in live game feeds.
+For accuracy, we're using annotated videos from Dataset 4, comparing our models detection with ground truth  i.e check if the center point of the ground truth lie in the predicted bounding box. It's a real-time check on whether our system accurately recognizes heads in live gaming.
+For speed, we're timing how quickly our model predicts based on each frame. It is important to note that
+eventhough we use a video ,  we load it as a stream of bytes frame by frame to replicate live feed.
+We also account for any target movement during this prediction time. So, we're essentially striving to ensure the models can accurately and swiftly detect dynamic movements in live game feeds.
+
+
 
 ### Expected Outcomes
 
@@ -424,18 +427,22 @@ Before diving into diving metrics, it is nice to look at  sample predictions in 
 </p>
 
 At first glance, it seems the Yolo was successfully able to predict perfectly from this batch. However, it is not 
-100% perfect, we have some interesting cases from different and presented below:
+100% perfect, we have some interesting cases from different batches that are presented below:
+
+<p align="center">
+<b>Bad Fruits</b>
 
 | ![Image 1](images/badpics/img.png) | ![Image 2](images/badpics/img_1.png) | ![Image 3](images/badpics/img_2.png) |
 |:---:|:---:|:---:|
 | ![Image 4](images/badpics/img_3.png) | ![Image 5](images/badpics/img_4.png) | ![Image 6](images/badpics/img_5.png) |
+</p>
 
 
 
 As we delve into the intricacies of yolo's behavior, we uncover fascinating quirks in its operation. Take, for instance, occasions when the model tags a firearm as the body of an adversary or even overlooks an enemy situated directly in front of the player. These scenarios provide a tantalizing glimpse into the thin line our model treads between correct and incorrect identification.
 
 ###### Metrics 
-Table I
+_Table I_
 
 | Class       | Images | Instances |    P    |    R    | mAP50  | mAP50-95 | F1-score(threshold = 0.5) |
 |-------------|--------|-----------|---------|---------|--------|----------|---------------------------|
@@ -456,15 +463,32 @@ of the cases the head is correctly recognized in the validation set as the metri
 or confidence of 0.5.
 
 
-The graphs below show the precision recall , Recall-confidence , precision-confidence  and f1-confidence curves.
+_Figure 1: Metrics_
 
 | ![R_curve](images/metrics/R_curve.png) | ![PR_curve](images/metrics/PR_curve.png) |
 |:--------------------------------------:|:----------------------------------------:|
 | ![P_curve](images/metrics/P_curve.png) | ![F1_curve](images/metrics/F1_curve.png) |
 
+Presented in the Figure 1 are four intriguing charts - Confidence vs Recall, Confidence vs Precision/Recall, Confidence vs Precision, and Confidence vs F1-score. These visualizations offer a glimpse into our model's confidence in relation to various metrics. It's this information that helped us optimize the model's confidence threshold.
 
+When we examine the Precision/Recall graphs, it appears that a confidence level of 0.7 or more would be acceptable. Yet, the F1-Confidence graph suggests an optimal confidence threshold around 0.5. It was this seemingly counter-intuitive revelation that guided us in setting our model's inference time confidence level.
+But that's not where our explorations ended! We were also intrigued to observe how the performance metrics evolved as the model processed increasing numbers of images. To this end, we visualized the changes over a batch of 700 images.
 
+_Figure 2: Training Loss and Evolution_
 
+![results.png](images/metrics/results.png)
+The resulting charts corroborate the idea that our model is on the right learning track - 
+the training loss continually diminishes as the model digests more images. 
+Simultaneously, precision and recall experience fluctuations but maintain an upward trajectory on average. Similarly, the mAP_0.5 and mAP_0.5:0.95 values also demonstrate a steady rise, further affirming our model's expected learning curve. It's refreshing to observe that our model is progressing just as anticipated, devoid of any unwelcome surprises.
+
+##### Online performance
+Yolo performed pretty well in real time detection. The inference delay was measured by seeing how fast the model is able to predict before the object to the next frame.
+The average delay of detecting object per frame was 0 with the maximum delay being 0.2 seconds. This meant that the Yolo model was able to keep up 30 fps live feed. Furthermore
+accuracy was also calculated by checking if the ground truth was inside the predicted bounding box. The accuracy was found to be 1 meaning that Yolo 
+is not only fast but also very accurate. Similarly, recall and precision was also 1 since it was able to completely predict the ground truth.
+
+The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream:
+![Online Performace](videos/live_yolo.gif)
 
 #### GroundingDINO and SAM
 
@@ -513,6 +537,10 @@ camera to the enemies in the shooting range.
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
 for the boxes (the rest of the annotation took a considerable amount of time).
 
+The video below shows the predictions in online inference time.
+<video src="https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f" controls="autoplay loop" style="max-width: 730px;">
+</video>It is easy to notice that the model is extremely slow causing the whole video to lag.
+
 
 
 ## Discussion
@@ -554,12 +582,6 @@ the object detections from YOLO instead.
 The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
 
 
-
-
-
-
-<video src="https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f" controls="autoplay loop" style="max-width: 730px;">
-</video>
 
 
 
