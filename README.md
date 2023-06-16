@@ -138,9 +138,14 @@ How we use these points, will be explained in the online evaluation section.
 ### Yolo
 
 ### GroundingDINO and SAM
+
+#### Description
+
 #### Annotations
 The annotations of the datasets we used are not very compatible with GroundingDINO and SAM. The annotations are small boxes which fit well with the detection style of YOLO and are seemingly annotated with that in mind.
 However, we had trouble getting GroundingDINO to get a similar detection style, simply because it does not use the same grid system that YOLO uses, and the textual prompts trying to isolate some areas do not work well all the time.
+
+The annotations were specifically made for two labels: "Head" and "Person".
 
 To make sure that the datasets were useful for both sides, we manually annotated the datasets, except for the third one as it was too noisy to make consistent decisions on annotating.
 For this annotation procedure we used labelme (the package can be installed through pip), and manually annotated boxes that would fit GroundingDINOs detection style.
@@ -174,6 +179,13 @@ on what is a best threshold was with a simple search with MAP evaluation on the 
 This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresolds higher than 0.45 were eliminating too many clear cases)
 In the end, the best performing cases were around 0.4 to 0.45, however there were many more cases with no detections.
 So instead we settled on 0.35 for both with an MAP of 0.803, as it detected nearly all cases.
+
+<div style="position:relative;width:fit-content;height:fit-content;">
+            <a style="position:absolute;top:20px;right:1rem;opacity:0.8;" href="https://clipchamp.com/watch/mpzngBMAgzz?utm_source=embed&utm_medium=embed&utm_campaign=watch">
+                <img style="height:22px;" src="https://clipchamp.com/e.svg" alt="Made with Clipchamp" />
+            </a>
+            <iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
+        </div>
 
 ### Offline Evaluation
 
