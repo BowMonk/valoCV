@@ -477,9 +477,8 @@ The segmentation masks should work the same, however the textual prompt function
 
 
 
-<video width="320" height="240" controls loop>
-  <source src="https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f" type="video/mp4">
-</video>
+https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f
+
 
 
 ## Tags
