@@ -593,3 +593,5 @@ Continuing our initial intention, we recommend further exploration into methods 
 **References**
 
 [1] Redmon, Joseph & Divvala, Santosh & Girshick, Ross & Farhadi, Ali. (2016). You Only Look Once: Unified, Real-Time Object Detection. 779-788. 10.1109/CVPR.2016.91.
+[2] https://segment-anything.com/
+[3] https://github.com/IDEA-Research/GroundingDINO

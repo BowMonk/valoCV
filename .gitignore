@@ -163,3 +163,4 @@ data/
 /Yolo/yolov5/**
 /Yolo/yolov5/datasets/**
 .idea
+notebooks/GroundingDINO
