@@ -119,14 +119,28 @@ Do note that all these datasets contain different labels with different quality 
 </table>
 </div>
 
+<h2 align="center">Dataset 4</h2>
+
+Our final dataset is a video that showcases the performance of real-time detection in action. This video features a streamer (TenZ) practicing in the in-game shooting range. In this scenario, enemies spawn in rapid succession and must be neutralized before they disappear.
+
+<p align="center">
+<img src='pics/video_example.jpg' width='600'>
+</p>
+To facilitate our evaluation, we annotated all frames in which an enemy appears with dots centering on the enemy's head and body, as illustrated below:
+
+<p align="center">
+<img src='pics/shooting annotation.png' width='600'>
+</p>
+During detection moments, we took the initiative to reduce on-screen clutter by whiting out the camera and the ad banner in the images.
+The use of these points will be detailed further in the online evaluation section.
+
+
+#### Comparison
+
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
 of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
 
 ## Yolo
-
-
-
-
 
 YOLO, short for "You Only Look Once," has revolutionized the field of computer vision with its state-of-the-art, real-time object detection system. Its unique approach to processing images in a single forward pass while achieving high accuracy has positioned it as a frontrunner for object detection tasks.
 
@@ -163,7 +177,7 @@ The choice of the 'm' model wasn't random[2]. It emerged as the optimal solution
 3. **Dataset Complexity**: Our datasets brought with them their own set of challenges, with varying complexities and quality. The 'm' model showcased its robustness in handling diverse image resolutions and noise levels.
 
 Remember, the choice of the model variant significantly hinges on your specific use case and available resources. If your priority is high accuracy and computational resources aren't a constraint, the larger 'l' or 'x' models might just be your ideal match. However, for this project, 'm' proved to be our optimal partner.
- This is the overall architecture of Yolo:
+This is the overall architecture of Yolo5m:
 
 <p align="center">
   <img src="images/yolo.png" alt="Yolo Im">
@@ -230,13 +244,56 @@ Except you need a provide an extra source with the path to the test dataset and 
 
 
 #### Hyperparameter Tuning:
-To tune hyperparameters evolutionary approach was used. itness is the value we seek to maximize. In YOLOv5 we define a default fitness function as a weighted combination of metrics: mAP@0.5 contributes 10% of the weight and mAP@0.5:0.95 contributes the remaining 90%, with Precision P and Recall R absent.
-We use this fitness function to eveolve the hyperparamteters,
 
-```
-python train.py --epochs 10 --data dataset--weights yolov5m.pt --cache --evolve
+
+To fine-tune the model, we used an evolutionary approach. The fitness of the model, which we aim to maximize, is defined by a weighted combination of metrics in YOLOv5. Specifically, mAP@0.5 contributes 10% of the weight, and mAP@0.5:0.95 provides the remaining 90%. Precision (P) and Recall (R) are not included.
+
+The model is trained for 100 epochs with the evolutionary approach:
+
+```bash
+python train.py --epochs 100 --data dataset --weights yolov5m.pt --cache --evolve
 ```
 
+Genetic operators such as crossover and mutation are primarily used during this evolution.
+
+The final hyperparameters are as follows:
+
+```yaml
+lr0: 0.01                  # initial learning rate (SGD=1E-2, Adam=1E-3)
+lrf: 0.2                   # final OneCycleLR learning rate (lr0 * lrf)
+momentum: 0.937            # SGD momentum/Adam beta1
+weight_decay: 0.0005       # optimizer weight decay 5e-4
+warmup_epochs: 3.0         # warmup epochs (fractions ok)
+warmup_momentum: 0.8       # warmup initial momentum
+warmup_bias_lr: 0.1        # warmup initial bias lr
+box: 0.05                  # box loss gain
+cls: 0.5                   # cls loss gain
+cls_pw: 1.0                # cls BCELoss positive_weight
+obj: 1.0                   # obj loss gain (scale with pixels)
+obj_pw: 1.0                # obj BCELoss positive_weight
+iou_t: 0.20                # IoU training threshold
+anchor_t: 4.0              # anchor-multiple threshold
+fl_gamma: 0.0              # focal loss gamma (efficientDet default gamma=1.5)
+hsv_h: 0.015               # image HSV-Hue augmentation (fraction)
+hsv_s: 0.7                 # image HSV-Saturation augmentation (fraction)
+hsv_v: 0.4                 # image HSV-Value augmentation (fraction)
+degrees: 0.0               # image rotation (+/- deg)
+translate: 0.1             # image translation (+/- fraction)
+scale: 0.5                 # image scale (+/- gain)
+shear: 0.0                 # image shear (+/- deg)
+perspective: 0.0           # image perspective (+/- fraction), range 0-0.001
+flipud: 0.0                # image flip up-down (probability)
+fliplr: 0.5                # image flip left-right (probability)
+mosaic: 1.0                # image mosaic (probability)
+mixup: 0.0                 # image mixup (probability)
+copy_paste: 0.0            # segment copy-paste (probability)
+```
+
+These hyperparameters determine the behavior of the training process and significantly 
+influence the model's performance. Fine-tuning these parameters is an essential part of computer vision
+pipeline to ensure optimal performance of the model on the task at hand.
+
+---
 
 ### GroundingDINO and SAM
 
@@ -288,12 +345,6 @@ This search was done using different combinations of box and text thresholds, wi
 In the end, the best performing cases were around 0.4 to 0.45, however there were many more cases with no detections.
 So instead we settled on 0.35 for both with an MAP of 0.803, as it detected nearly all cases.
 
-<div style="position:relative;width:fit-content;height:fit-content;">
-            <a style="position:absolute;top:20px;right:1rem;opacity:0.8;" href="https://clipchamp.com/watch/mpzngBMAgzz?utm_source=embed&utm_medium=embed&utm_campaign=watch">
-                <img style="height:22px;" src="https://clipchamp.com/e.svg" alt="Made with Clipchamp" />
-            </a>
-            <iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
-        </div>
 
 ### Offline Evaluation
 
@@ -353,6 +404,10 @@ camera to the enemies in the shooting range.
 
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
 for the boxes (the rest of the annotation took a considerable amount of time). 
+
+
+<iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
+
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
