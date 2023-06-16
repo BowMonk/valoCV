@@ -413,7 +413,11 @@ for the boxes (the rest of the annotation took a considerable amount of time).
             <iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
         </div>
 
-[Dino.mp4](videos%2FDino.mp4)
+
+
+https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
+
+
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
