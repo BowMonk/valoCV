@@ -483,12 +483,23 @@ Simultaneously, precision and recall experience fluctuations but maintain an upw
 
 ##### Online performance
 Yolo performed pretty well in real time detection. The inference delay was measured by seeing how fast the model is able to predict before the object to the next frame.
-The average delay of detecting object per frame was 0 with the maximum delay being 0.2 seconds. This meant that the Yolo model was able to keep up 30 fps live feed. Furthermore
+The average delay of detecting object per frame was 0 with the maximum delay being 50 ms. This meant that the Yolo model was able to keep up 30 fps live feed. Furthermore
 accuracy was also calculated by checking if the ground truth was inside the predicted bounding box. The accuracy was found to be 1 meaning that Yolo 
 is not only fast but also very accurate. Similarly, recall and precision was also 1 since it was able to completely predict the ground truth.
 
+
 The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream:
-![Online Performace](live_yolo.gif)
+<p align="center">
+  <img src="live_yolo.gif" alt="Online Performance">
+  <br>
+  <em>Live Inference</em>
+</p>
+
+Note that the green bounding boxes are from the predicted labels, while the blue circles are from the ground truth.
+If you wish to see the inference on the original video, run `main.py` under the 'yolo' folder.
+
+The gif shows the power of Yolo and how fast the inference of each frame is. Do note that this 
+was done on Yolo v5, higher versions may produce much faster results. 
 
 #### GroundingDINO and SAM
 
@@ -547,33 +558,34 @@ camera to the enemies in the shooting range.
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
 for the boxes (the rest of the annotation took a considerable amount of time).
 
-The video below shows the predictions in online inference time.
-<video src="https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f" controls="autoplay loop" style="max-width: 730px;">
-</video>It is easy to notice that the model is extremely slow causing the whole video to lag.
+The following gif shows you the performance of Dino on the video of dataset 4 loaded as a stream:
+<p align="center">
+  <img src="dino_live.gif" alt="Online Performance">
+  <br>
+  <em>Live Inference</em>
+</p>
 
-
+Note that the green bounding boxes are from the predicted labels, while the blue circles are from the ground truth.
+As you can see from the gif, the model is extremely slow and the 1 second delay is very
+noticeable despite its reasonable accuracy.
 
 ## Discussion
+The findings from our exploration presented us with some unexpected turns. Nonetheless, we were able to discern distinct disparities between the performance of GroundingDINO + SAM and YOLO. 
 
-The results we got from this study were not what we were expecting, however we do believe to have shown some clear differences between 
-GroundingDINO + SAM and YOLO. 
+We began the investigation with the presumption that GroundingDINO might struggle a bit with object detection, especially in light of the challenges we faced during its training compared to YOLO. However, what took us by surprise was the real-time detection complications, a by-product of the model's computational demands. As a result, GroundingDINO fell short of the mark when it came to real-time object detection in the arena of first-person shooters on a single GPU setup, primarily due to its slow speed. 
 
-Although we expected GroundingDINO to perform worse in the task of object detection due to the inability to train it properly compared to 
-YOLO, we did not expect the issues with real-time detection spawning from the computational demands it has. 
-Because of the slow speed, it cannot be properly used for real-time object detection in the context of first-person shooters (running on single GPUs).
+Nevertheless, it's worth mentioning that the model's computation speed could have been influenced by other factors. A glimpse into these can be viewed here: [GitHub Link](https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60)
 
-However, there could be other factors that have affected the speed of the computations.
-https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
+In our quest to understand the model better, we shied away from tampering with the numerous intricate operations GroundingDINO undertakes. Tailoring this model to perfection is a time-intensive process. A possible solution could be to run DINO+SAM on multiple GPUs, although that would be a significant commitment for something that other models, like YOLO, can deliver with greater accuracy and speed.
+In our effort to maximize efficiency, we optimized the procedure of annotation readings to lessen the workload. Unfortunately, this adjustment didn't impact the overall speed noticeably, as the standalone procedure ran without any noticeable delay.
 
-We did not tinker much with the extra operations that GroundingDINO is doing under the hood, as the model is quite complex and would require
-quite some time to properly change.
-For a proper application of this, DINO+SAM could be running on multiple GPUs, however that seems quite an investment for something that could 
-be achieved through other models(YOLO) with more accuracy and speed. 
 
-We tried to make the procedure of annotation readings (for the dots) as fast as possible to reduce load, however we noticed that it did not affect
-the overall speed, as on its own it ran with no visible delay.
 
-In the end, YOLO seems to remain the most efficient way to conduct real-time object detection, and specifically in first person shooters.
+## Conclusion
+
+In summary, when it comes to real-time object detection tasks, particularly within the scope of first-person shooter scenarios, YOLO emerges as the preeminent choice. Its unique blend of accuracy and speed consistently distinguishes it within the landscape of object detection models. As for hyperparameter tuning, YOLO 5m comes with 18 hyperparameters, which offers flexibility for customization. This level of refinement is currently not accessible with Dino, as it is designed for zero-shot learning.
+
+Nevertheless, Dino's inherent accuracy and versatility cannot be overlooked. Even though it is still in its nascent stages, the model demonstrates substantial potential for future applications in real-time computer vision. The journey of Dino is certainly one to watch as the field of computer vision continues to evolve and innovate.
 
 ### Future work and things we couldn't wrap up
 
@@ -584,12 +596,10 @@ With the possibility of using the bounds of the segmentation mask as constraints
 However, seeing the performance of DINO, we are unable to properly make do this study, as it would take a long time to analyse the difference between a point
 and click approach, and a noise addition through the proposed pipeline.
 
-
 Throughout this study we have however come up with a (possibly) better suggestion that fits the use case of all the mentioned models better.
 We could use GroundingDINO for automatic annotation of data, which will then be used to train YOLO for increased object detection performance, and later adapting SAM to work with
-the object detections from YOLO instead.
-
-The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
+the object detections from YOLO instead. The segmentation masks should work the same, 
+however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
 
 
 
