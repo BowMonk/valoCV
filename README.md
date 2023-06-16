@@ -4,7 +4,7 @@
 Arbër Demi 5073227
 Akash Amalan 4682505
 
-### Introduction
+## Introduction
 
 Aim bots, an intersection of artificial intelligence (AI) and gaming, represent an intriguing area of study. Their study unveils innovative algorithms, novel training methodologies, and enhanced performance in intricate gaming environments. On a different note, the use of aim bots often leads to unfair gaming practices, which prompts the necessity of exploring this domain to ensure ethical gaming experiences.
 
@@ -12,7 +12,7 @@ Existing solutions for automated gameplay primarily rely on metadata acquired di
 
 We chose Valorant, a popular first-person shooter game by Riot Games, as our testbed due to its dynamic environment and vast user base. Our model targets enemy heads and bodies to evaluate its performance.
 
-### Methodology
+## Methodology
 
 
 Our prime objective is to examine how the combined SAM+GroundingDINO model stacks up against the traditional YOLO model. SAM, an object segmentation model developed by Meta, coupled with GroundingDINO, a zero-shot object detection model, is a promising combination. We hypothesize that this could provide improved accuracy and robust behavior masking for vision-based bots.
@@ -27,7 +27,17 @@ For our experiment, we leveraged pre-annotated labels and training/test images f
 In the following sections, we will detail how these datasets were utilized for training and validating our models.
 
 
-#### Datasets
+### Resources
+The experiments were done on two separate CPUs and GPUs. 
+
+| Experiment Model       | CPU                   | GPU |
+|------------------------|-----------------------| --- |
+| **YOLO**                   | Intel Core I5 12-600k | NVIDIA RTX 3070 |
+| **Grounding Dina and SEM** | Intel Core I9 12-900k | NVIDIA RTX 3070TI |
+
+
+
+### Datasets
 Each dataset comes with a training set, validation set, and testing set. The images are provided in JPEG format, while the labels for each set are stored in separate text files. 
 
 The label format is as follows:
@@ -121,7 +131,11 @@ Do note that all these datasets contain different labels with different quality 
 
 <h2 align="center">Dataset 4</h2>
 
-Our final dataset is a video that showcases the performance of real-time detection in action. This video features a streamer (TenZ) practicing in the in-game shooting range. In this scenario, enemies spawn in rapid succession and must be neutralized before they disappear.
+Our final dataset is a video that showcases the performance of real-time detection in action. 
+This video features a streamer (TenZ) practicing in the in-game shooting range. 
+In this scenario, enemies spawn in rapid succession and must be neutralized before they disappear. Do note that
+we chose not to use in game stream where the enemies use special abilities as the models will not be trained to detect
+these.
 
 <p align="center">
 <img src='pics/video_example.jpg' width='600'>
@@ -140,25 +154,15 @@ The use of these points will be detailed further in the online evaluation sectio
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
 of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
 
-## Yolo
+### Yolo
 
-YOLO, short for "You Only Look Once," has revolutionized the field of computer vision with its state-of-the-art, real-time object detection system. Its unique approach to processing images in a single forward pass while achieving high accuracy has positioned it as a frontrunner for object detection tasks.
+YOLO (You Only Look Once) is nothing short of a revolution in computer vision, boasting high efficiency and accuracy in real-time object detection. It's unique, game-changing approach abandons the traditional method of considering multiple regions for potential objects, which can be slow and resource-heavy.
 
-The principle underlying YOLO is refreshingly simple. Traditional object detection systems propose multiple regions within an image as potential objects and classify them independently. This method, while effective, can be computationally taxing and slow. YOLO, however, transforms this task into a single regression problem. It divides the image into a grid and assigns each cell within this grid the responsibility of predicting a defined number of bounding boxes and class probabilities.
+Instead, YOLO simplifies object detection into a single step process. It partitions the image into a grid, assigning each cell the task of predicting bounding boxes and class probabilities. This streamlined approach results in significant speed gains, all the while maintaining excellent detection performance.
 
-Each cell within the grid predicts multiple bounding boxes and their associated confidence scores. These scores reflect both the model's confidence in the presence of an object within the box and the accuracy of the predicted box. Each bounding box is characterized by five predictions: x, y, w, h, and confidence. The coordinates (x, y) denote the center of the box relative to the grid cell's boundaries, while width (w) and height (h) are predicted relative to the entire image. The confidence prediction denotes the Intersection over Union (IoU) between the predicted box and any ground truth box.
+The YOLO model, consisting of convolutional layers followed by fully connected layers, processes the entire image in one go during training. This holistic processing allows YOLO to grasp contextual information about classes and appearances, providing it a superior edge in detecting various sized objects in diverse settings. With each new version, YOLO continues to refine its architecture, resulting in an ever-evolving system that's both faster and more accurate.
 
-Simultaneously, each grid cell predicts conditional class probabilities for each class. The conditional class probability is the probability of a detected object belonging to a particular class. The final score for each bounding box is computed as the product of the box's confidence and the conditional class probability. Any bounding box with a final score below a certain threshold is discarded. Through this unified detection scheme, YOLO achieves significant speed while maintaining competitive object detection performance, eliminating the need for various pre-processing stages and establishing a highly effective and efficient method for object detection.
-
-The YOLO architecture is an ensemble of simplicity and effectiveness. It employs a single Convolutional Neural Network (CNN) that processes an entire image as input and predicts bounding boxes and class probabilities directly from the image in a single pass. The backbone of this network consists of 24 convolutional layers followed by 2 fully connected layers. Inspired by the GoogLeNet model for image classification, YOLO replaces the inception modules used in GoogleNet with straightforward 1x1 reduction layers followed by 3x3 convolutional layers. The earlier layers of the network function like a conventional CNN, ending with fully connected layers that serve as a classifier.
-
-The final output from the YOLO architecture is a tensor of shape (S, S, B*5 + C), where S x S represents the number of grid cells the image is divided into, B stands for the number of bounding boxes each cell predicts, and C signifies the number of classes. For each bounding box, the model outputs five properties: x, y coordinates of the box center, width and height of the box, and a confidence score.
-
-An intriguing aspect of YOLO's architecture is that it processes the entire image during the training phase. This approach allows YOLO to implicitly encode contextual information about classes and their appearance, equipping it with superior capabilities when detecting objects of varying sizes and settings, thereby enhancing its generalization ability over numerous object detection models.
-
-In its newer versions, YOLO's architecture has been improved to incorporate features like skip connections and upsampling. These features assist in detecting smaller objects. The final layer now also utilizes anchor boxes to refine bounding box predictions for objects of diverse shapes. Consequently, each version of YOLO continues to evolve and improve on its architecture, making it both faster and more accurate.
-
-### YOLO Versions and Variants: Choosing the Right One for Our Project
+#### YOLO Versions and Variants: Choosing the Right One for Our Project
 
 Navigating through the diverse landscape of object detection algorithms, one cannot miss the dynamism and robustness of YOLO (You Only Look Once)[1]. Known for its speedy real-time inference, YOLO has seen multiple iterations, each carving a niche for itself with unique capabilities and optimizations.
 
@@ -189,17 +193,21 @@ This is the overall architecture of Yolo5m:
 
 #### Training and Validation: Harmonizing Datasets and Embracing Diversity
 
-For training YOLO, we utilized three distinct datasets, each with its unique characteristics but adhering to a consistent format. The quality of images within these datasets varied, as did the labels they utilized.
+For training YOLO, we utilized all three distinct datasets, each with its unique characteristics but adhering to a consistent format. The quality of images within these datasets varied, as did the labels they utilized.
 
 All datasets encompassed `EnemyHead` and `EnemyBody` labels, which were our primary focus for this study. However, they also contained additional labels such as `BoomBot` and other game-specific abilities. These extra labels, although interesting, did not align directly with our current objective.
 
-To achieve a streamlined training process, we undertook the task of re-labeling these datasets. This harmonization allowed us to align the data more closely with our goal. We adopted the following label convention: `['boomybot', 'enemyBody', 'enemyHead', 'smoke', 'splat', 'teammate', 'walledoff enemy']`. This decision was guided by the inner workings of YOLO.
+To achieve a streamlined training process, we undertook the task of re-labeling these datasets. 
+This harmonization allowed us to align the data more closely with our goal.
+We adopted the following label convention: `['boomybot', 'enemyBody', 'enemyHead', 'smoke', 'splat', 'teammate', 'walledoff enemy']`. 
+This decision was guided by the inner workings of YOLO. 
 
 YOLO operates based on class predictions rather than class names, translating our meticulously chosen labels into a plain numerical list: `[0, 1, 2, 3, 4, 5, 6, 7]`. Through our re-labeling effort, we ensured that every class number correctly corresponded to its respective label across all datasets.
 
 One might question our decision to use a wide range of image qualities, rather than solely high-resolution images or curating a pruned selection. The answer lies in the trade-off between quality and diversity. Incorporating images of varying quality level challenged YOLO's ability to interpret images under different conditions. 
 This not only enriched our training data but also aimed to enhance YOLO's generalization performance on the test set,
-crafting a more robust model ready to tackle different angles one might encounter in Valorant.
+crafting a more robust model ready to tackle different angles one might encounter in Valorant. Therefore all 3 datasets was merged into one
+and used for training the Yolo model.
 
 ##### Process and Commands
 The training process is initiated through a command-line interface, which accepts a set of parameters: the image size, batch size, number of epochs, a data.yaml file specifying the dataset configuration, the chosen model, and the weights.
@@ -348,20 +356,31 @@ So instead we settled on 0.35 for both with an MAP of 0.803, as it detected near
 
 ### Offline Evaluation
 
-The key to any comparative study lies in its evaluation metrics. We use Mean Average Precision (MAP), Precision, Recall, and F1 score as our key metrics to evaluate the performance of the models:
+The key to any comparative study lies in its evaluation metrics. We use Mean Average Precision (MAP), Precision, Recall, and F1 score as our key metrics to evaluate the performance of the models 
+only on the images from the datasets(not videos):
 
 - **Precision** is the ratio of correctly predicted positive observations to the total predicted positives.
 - **Recall** (Sensitivity) calculates the ratio of correctly predicted positive observations to the all observations in actual class.
 - **F1 Score** is the weighted average of Precision and Recall. It tries to find the balance between precision and recall.
 - **MAP** (Mean Average Precision) is used in information retrieval to measure the effectiveness of the model in terms of precision of retrieval over a range of recall values.
 
-We run these evaluations both offline and online, with online evaluations conducted on live game feed to measure the inference time and reaction to dynamic movements. 
+Do note that **accuracy** was not considered due to the several reasons:
+ -  The number of pixels representing the object (foreground) can be much smaller than the pixels representing the background. In such cases, a model that only predicts the background would still have a high accuracy, despite failing to detect any objects. 
+ -  Accuracy doesn't account for localization errors. A model may correctly identify the presence of an object but inaccurately define its boundaries or location. Accuracy would still consider this a correct prediction, even though the location is wrong.
+ -  Multiple Objects: In scenarios where multiple instances of an object can exist in a single image, accuracy as a metric falls short. If a model fails to detect one of several objects, the accuracy might still be high despite the missed detection.
+ -  Precision and Recall Tradeoff: Accuracy doesn't account for the tradeoff between precision (how many selected items are relevant) and recall (how many relevant items are selected). In some contexts, it may be more important to prioritize one over the other.
+
+### Online Evaluation
+In the fast-paced world of online gaming, real-time performance is critical. We're testing our system on two key parameters – accuracy in head classification and inference speed.
+For accuracy, we're using annotated videos from Dataset 4, comparing our system's detection with ground truth frames. It's a real-time check on whether our system accurately recognizes heads in live gaming.
+For speed, we're timing how quickly our model predicts based on each frame. We also account for any target movement during this prediction time.
+So, we're essentially striving to ensure our system can accurately and swiftly detect dynamic movements in live game feeds.
 
 ### Expected Outcomes
 
 Through this experiment, we aim to answer the following questions:
 
-- How does YOLO compare to SAM+GroundingDINO for general metrics like MAP, recall, precision, F1 score?
+- How does YOLO compare to SAM+GroundingDINO for  metrics: MAP, recall, precision, F1 score?
 - What hyperparameters need to be tuned between the two models?
 - How well does the model react to dynamic movements in the online game feed?
 - Can SAM+GroundingDINO outperform YOLO in a dynamic first-person shooter game like Valorant?
@@ -369,6 +388,68 @@ Through this experiment, we aim to answer the following questions:
 Our study aims to shed light on the applications of advanced computer vision techniques in gaming, specifically first-person shooters. By comparing different object detection architectures, we hope to contribute to the ongoing development of fair and ethical gaming practices.
 
 ### Results
+
+#### Yolo
+The results for Yolo for both offline performance and online performance are presented below
+
+##### Offline performance
+
+###### Sample Predictions 
+
+Before diving into diving metrics, it is nice to look at  sample predictions in a batch from yolo.
+
+<p align="center">
+    <b>Ground Truth</b><br>
+    <img src="Yolo/yolov5/runs/train/exp11/val_batch2_labels.jpg">
+</p>
+
+<p align="center">
+    <b>Predictions</b><br>
+    <img src="Yolo/yolov5/runs/train/exp11/val_batch2_pred.jpg">
+</p>
+
+At first glance, it seems the Yolo was successfully able to predict perfectly from this batch. However, it is not 
+100% perfect, we have some interesting cases from different and presented below:
+
+| ![Image 1](images/badpics/img.png) | ![Image 2](images/badpics/img_1.png) | ![Image 3](images/badpics/img_2.png) |
+|:---:|:---:|:---:|
+| ![Image 4](images/badpics/img_3.png) | ![Image 5](images/badpics/img_4.png) | ![Image 6](images/badpics/img_5.png) |
+
+
+
+As we delve into the intricacies of yolo's behavior, we uncover fascinating quirks in its operation. Take, for instance, occasions when the model tags a firearm as the body of an adversary or even overlooks an enemy situated directly in front of the player. These scenarios provide a tantalizing glimpse into the thin line our model treads between correct and incorrect identification.
+
+###### Metrics 
+Table I
+
+| Class       | Images | Instances |    P    |    R    | mAP50  | mAP50-95 | F1-score(threshold = 0.5) |
+|-------------|--------|-----------|---------|---------|--------|----------|---------------------------|
+| all         |  243   |   541     |  0.924  |  0.872  | 0.911  |  0.57    | 0.79                      |
+| enemyBody   |  243   |   252     |  0.978  |  0.968  | 0.984  |  0.702   | 0.94                      |
+| enemyHead   |  243   |   289     |  0.87   |  0.775  | 0.838  |  0.438   | 0.83                      |
+
+In this table, "Class" refers to the object being detected, "Images" is the number of images used, 
+"Instances" is the number of instances the class appeared in the dataset, "P" is precision, "R" is recall, 
+"mAP50" is mean average precision at 50% Intersection over Union (IoU) and
+"mAP50-95" is mean average precision at IoU from 50% to 95%.
+
+
+It is apparent from the high precision and recall for enemyBody shows that it can in most realisitc cases 
+be able to draw the correct bounding boxes. It is also apparent that it is much easier to detect the enemyBody than the 
+head which is something that we would expect. Nonetheless, this model performs very well in detecting enemyHead, in more than 75%
+of the cases the head is correctly recognized in the validation set as the metrics mAP and F1-score reveal at a threshold
+or confidence of 0.5.
+
+
+The graphs below show the precision recall , Recall-confidence , precision-confidence  and f1-confidence curves.
+
+| ![R_curve](Yolo/yolov5/runs/train/exp11/R_curve.png) | ![PR_curve](Yolo/yolov5/runs/train/exp11/PR_curve.png) |
+|:---:|:---:|
+| ![P_curve](Yolo/yolov5/runs/train/exp11/P_curve.png) | ![F1_curve](Yolo/yolov5/runs/train/exp11/F1_curve.png) |
+
+
+
+
 
 #### GroundingDINO and SAM
 
@@ -387,7 +468,7 @@ Table I
 At first glance, the most noticeable thing is the disparity between the AP (Average Precision) between the Head and Person/Body classes.
 DINO was much better at detecting the general body, which is understandable as the head has less detail and is generally
 harder to detect due to the smaller amount of pixels.
-The model in general has low recall but higher precision, with overall not a great performance, much less than we expected.
+The model in general has low recall but higher precision, while overall not a great performance, much less than we expected.
 
 ##### Online performance
 
@@ -407,11 +488,8 @@ for the boxes (the rest of the annotation took a considerable amount of time).
 
 
 
-
-
 https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
 
- <video loop src="videos/Dino.mp4">  video </video> 
 
 ## Tags
 `#ComputerVision` `#AI` `#ML` `#YOLO` `#GroundingDINO` `#SAM` `#Valorant` `#Aimbot`
