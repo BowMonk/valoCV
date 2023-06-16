@@ -24,7 +24,7 @@ these datasets for training and validation.
 #### Yolo
 Do note that all these datasets contain different labels with different quality of images. Here are some random examples of all 3 datasets that was used to train Yolo
 
-#### Dataset 1
+<h2 align="center">Dataset 1</h2>
 <div align="center">
 <table>
   <tr>
@@ -50,7 +50,7 @@ Do note that all these datasets contain different labels with different quality 
 <br>
 <br>
 
-#### Dataset2
+<h2 align="center">Dataset 2</h2>
 
 
 <div align="center">
@@ -77,7 +77,8 @@ Do note that all these datasets contain different labels with different quality 
 <br>
 <br>
 
-#### Dataset3
+<h2 align="center">Dataset 3</h2>
+
 
 
 <div align="center">
