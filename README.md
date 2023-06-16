@@ -4,6 +4,8 @@
 Arbër Demi 5073227
 Akash Amalan 4682505
 
+
+
 ### Introduction
 
 Aim bots, an intersection of artificial intelligence (AI) and gaming, represent an intriguing area of study. Their study unveils innovative algorithms, novel training methodologies, and enhanced performance in intricate gaming environments. On a different note, the use of aim bots often leads to unfair gaming practices, which prompts the necessity of exploring this domain to ensure ethical gaming experiences.
@@ -45,19 +47,19 @@ Do note that all these datasets contain different labels with different quality 
 <div align="center">
 <table>
   <tr>
-    <td align="center"><a href="#"><img src="images/dataset1/11.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/12.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/13.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+    <td align="center"><img src="images/dataset1/11.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></td>
+    <td align="center"><img src="images/dataset1/12.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></td>
+    <td align="center"><img src="images/dataset1/13.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><a href="#"><img src="images/dataset1/14.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/15.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/16.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+    <td align="center"><img src="images/dataset1/14.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></td>
+    <td align="center"><img src="images/dataset1/15.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></td>
+    <td align="center"><img src="images/dataset1/16.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><a href="#"><img src="images/dataset1/17.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/18.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
-    <td align="center"><a href="#"><img src="images/dataset1/19.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+    <td align="center"><img src="images/dataset1/17.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></td>
+    <td align="center"><img src="images/dataset1/18.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></td>
+    <td align="center"><img src="images/dataset1/19.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></td>
   </tr>
 
 </table>
@@ -73,19 +75,19 @@ Do note that all these datasets contain different labels with different quality 
 <div align="center">
 <table>
   <tr>
-    <td align="center"><img src="images/dataset2/21.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/22.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/23.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+    <td align="center"><img src="images/dataset2/21.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></td>
+    <td align="center"><img src="images/dataset2/22.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></td>
+    <td align="center"><img src="images/dataset2/23.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="images/dataset2/24.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/25.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/26.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+    <td align="center"><img src="images/dataset2/24.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></td>
+    <td align="center"><img src="images/dataset2/25.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></td>
+    <td align="center"><img src="images/dataset2/26.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="images/dataset2/27.jpg" width="200px" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/28.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
-    <td align="center"><img src="images/dataset2/29.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+    <td align="center"><img src="images/dataset2/27.jpg" width="200px" alt="Image7"/><br /><sub><b>Image 7</b></sub></td>
+    <td align="center"><img src="images/dataset2/28.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></td>
+    <td align="center"><img src="images/dataset2/29.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></td>
   </tr>
 
 </table>
@@ -101,19 +103,19 @@ Do note that all these datasets contain different labels with different quality 
 <div align="center">
 <table>
   <tr>
-    <td align="center"><img src="images/dataset3/31.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/32.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/33.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></a></td>
+    <td align="center"><img src="images/dataset3/31.jpg" width="200px;" alt="Image1"/><br /><sub><b>Image 1</b></sub></td>
+    <td align="center"><img src="images/dataset3/32.jpg" width="200px;" alt="Image2"/><br /><sub><b>Image 2</b></sub></td>
+    <td align="center"><img src="images/dataset3/33.jpg" width="200px;" alt="Image3"/><br /><sub><b>Image 3</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="images/dataset3/34.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/35.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/36.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></a></td>
+    <td align="center"><img src="images/dataset3/34.jpg" width="200px;" alt="Image4"/><br /><sub><b>Image 4</b></sub></td>
+    <td align="center"><img src="images/dataset3/35.jpg" width="200px;" alt="Image5"/><br /><sub><b>Image 5</b></sub></td>
+    <td align="center"><img src="images/dataset3/36.jpg" width="200px;" alt="Image6"/><br /><sub><b>Image 6</b></sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="images/dataset3/37.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/38.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></a></td>
-    <td align="center"><img src="images/dataset3/39.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></a></td>
+    <td align="center"><img src="images/dataset3/37.jpg" width="200px;" alt="Image7"/><br /><sub><b>Image 7</b></sub></td>
+    <td align="center"><img src="images/dataset3/38.jpg" width="200px;" alt="Image8"/><br /><sub><b>Image 8</b></sub></td>
+    <td align="center"><img src="images/dataset3/39.jpg" width="200px;" alt="Image9"/><br /><sub><b>Image 9</b></sub></td>
   </tr>
 
 </table>
@@ -122,13 +124,35 @@ Do note that all these datasets contain different labels with different quality 
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
 of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
 
+## Yolo
+
+
+
+
+
+YOLO, short for "You Only Look Once," has revolutionized the field of computer vision with its state-of-the-art, real-time object detection system. Its unique approach to processing images in a single forward pass while achieving high accuracy has positioned it as a frontrunner for object detection tasks.
+
+The principle underlying YOLO is refreshingly simple. Traditional object detection systems propose multiple regions within an image as potential objects and classify them independently. This method, while effective, can be computationally taxing and slow. YOLO, however, transforms this task into a single regression problem. It divides the image into a grid and assigns each cell within this grid the responsibility of predicting a defined number of bounding boxes and class probabilities.
+
+Each cell within the grid predicts multiple bounding boxes and their associated confidence scores. These scores reflect both the model's confidence in the presence of an object within the box and the accuracy of the predicted box. Each bounding box is characterized by five predictions: x, y, w, h, and confidence. The coordinates (x, y) denote the center of the box relative to the grid cell's boundaries, while width (w) and height (h) are predicted relative to the entire image. The confidence prediction denotes the Intersection over Union (IoU) between the predicted box and any ground truth box.
+
+Simultaneously, each grid cell predicts conditional class probabilities for each class. The conditional class probability is the probability of a detected object belonging to a particular class. The final score for each bounding box is computed as the product of the box's confidence and the conditional class probability. Any bounding box with a final score below a certain threshold is discarded. Through this unified detection scheme, YOLO achieves significant speed while maintaining competitive object detection performance, eliminating the need for various pre-processing stages and establishing a highly effective and efficient method for object detection.
+
+The YOLO architecture is an ensemble of simplicity and effectiveness. It employs a single Convolutional Neural Network (CNN) that processes an entire image as input and predicts bounding boxes and class probabilities directly from the image in a single pass. The backbone of this network consists of 24 convolutional layers followed by 2 fully connected layers. Inspired by the GoogLeNet model for image classification, YOLO replaces the inception modules used in GoogleNet with straightforward 1x1 reduction layers followed by 3x3 convolutional layers. The earlier layers of the network function like a conventional CNN, ending with fully connected layers that serve as a classifier.
+
+The final output from the YOLO architecture is a tensor of shape (S, S, B*5 + C), where S x S represents the number of grid cells the image is divided into, B stands for the number of bounding boxes each cell predicts, and C signifies the number of classes. For each bounding box, the model outputs five properties: x, y coordinates of the box center, width and height of the box, and a confidence score.
+
+An intriguing aspect of YOLO's architecture is that it processes the entire image during the training phase. This approach allows YOLO to implicitly encode contextual information about classes and their appearance, equipping it with superior capabilities when detecting objects of varying sizes and settings, thereby enhancing its generalization ability over numerous object detection models.
+
+In its newer versions, YOLO's architecture has been improved to incorporate features like skip connections and upsampling. These features assist in detecting smaller objects. The final layer now also utilizes anchor boxes to refine bounding box predictions for objects of diverse shapes. Consequently, each version of YOLO continues to evolve and improve on its architecture, making it both faster and more accurate.
+
 ### YOLO Versions and Variants: Choosing the Right One for Our Project
 
 Navigating through the diverse landscape of object detection algorithms, one cannot miss the dynamism and robustness of YOLO (You Only Look Once)[1]. Known for its speedy real-time inference, YOLO has seen multiple iterations, each carving a niche for itself with unique capabilities and optimizations.
 
-The spotlight often falls on YOLOv3, a common choice among researchers and developers alike. However, the YOLO universe doesn't stop there. The emergence of newer versions like YOLOv7 and YOLOv8 underscores continuous innovations in the pursuit of faster and more efficient real-time object detection[^1^].
+The spotlight often falls on YOLOv3, a common choice among researchers and developers alike. However, the YOLO universe doesn't stop there. The emergence of newer versions like YOLOv7 and YOLOv8 underscores continuous innovations in the pursuit of faster and more efficient real-time object detection[1].
 
-For this project, our journey led us to YOLOv5, an intriguing balance between performance and computational resource consumption. But the YOLOv5 story isn't one-size-fits-all, with different variants ('s', 'm', 'l', and 'x') offering a spectrum of speed and accuracy trade-offs[^2^].
+For this project, our journey led us to YOLOv5, an intriguing balance between performance and computational resource consumption. But the YOLOv5 story isn't one-size-fits-all, with different variants ('s', 'm', 'l', and 'x') offering a spectrum of speed and accuracy trade-offs[2].
 
 - The 's' variant, being the smallest and fastest, tempts with high speed but at the expense of accuracy.
 - The 'm' variant, our chosen companion for this endeavor, strikes a harmonious balance between speed and accuracy.
@@ -141,8 +165,17 @@ The choice of the 'm' model wasn't random[2]. It emerged as the optimal solution
 3. **Dataset Complexity**: Our datasets brought with them their own set of challenges, with varying complexities and quality. The 'm' model showcased its robustness in handling diverse image resolutions and noise levels.
 
 Remember, the choice of the model variant significantly hinges on your specific use case and available resources. If your priority is high accuracy and computational resources aren't a constraint, the larger 'l' or 'x' models might just be your ideal match. However, for this project, 'm' proved to be our optimal partner.
+ This is the overall architecture of Yolo:
 
-## Training and Validation: Harmonizing Datasets and Embracing Diversity
+<p align="center">
+  <img src="images/yolo.png" alt="Yolo Im">
+</p>
+
+
+
+
+
+#### Training and Validation: Harmonizing Datasets and Embracing Diversity
 
 For training YOLO, we utilized three distinct datasets, each with its unique characteristics but adhering to a consistent format. The quality of images within these datasets varied, as did the labels they utilized.
 
@@ -156,7 +189,65 @@ One might question our decision to use a wide range of image qualities, rather t
 This not only enriched our training data but also aimed to enhance YOLO's generalization performance on the test set,
 crafting a more robust model ready to tackle different angles one might encounter in Valorant.
 
+##### Process and Commands
+The training process is initiated through a command-line interface, which accepts a set of parameters: the image size, batch size, number of epochs, a data.yaml file specifying the dataset configuration, the chosen model, and the weights.
+
+The data.yaml file is a fundamental piece that provides details about the data being used. An example of this file might look like this:
+
+```yaml
+path: datasets/dataset2
+train: train/images
+val: valid/images
+test: test/images
+nc: 7
+names: ['boomybot', 'enemyBody', 'enemyHead', 'smoke', 'splat', 'teammate', 'walledoff enemy']
+```
+
+In this YAML file, we specify the path of our dataset, the locations of the training, validation, and testing images, the number of classes (`nc`), and the names of these classes.
+
+The validation process follows a similar structure and is run using the following command:
+
+```shell
+python val.py --weights ../best.pt --data valorant.yaml --img 416
+```
+
+Finally, the testing process is also similar but requires an additional source parameter indicating the path to the testing dataset, and a confidence threshold for the bounding boxes. It can be executed using the following command:
+
+```shell
+python detect.py --weights ../best.pt --img 640 --conf 0.25 --source datasets/dataset1/test/images
+```
+This structure allows for a great deal of flexibility and customization in the training, validation, and testing processes, accommodating various types of data configurations and use cases.
+
+For validation a similar command is used:
+```
+python val.py --weights ../best.pt --data valorant.yaml --img 416
+```
+
+For testing also a similar command is used
+```
+python detect.py --weights ../best.pt --img 640 --conf 0.25 --source datasets/dataset1/test/images
+```
+Except you need a provide an extra source with the path to the test dataset and a confidence for the bounding boxes. 
+
+
+
+#### Hyperparameter Tuning:
+To tune hyperparameters evolutionary approach was used. itness is the value we seek to maximize. In YOLOv5 we define a default fitness function as a weighted combination of metrics: mAP@0.5 contributes 10% of the weight and mAP@0.5:0.95 contributes the remaining 90%, with Precision P and Recall R absent.
+We use this fitness function to eveolve the hyperparamteters,
+
+```
+python train.py --epochs 10 --data dataset--weights yolov5m.pt --cache --evolve
+```
+
+
 ### GroundingDINO and SAM
+
+<p align="center">
+  <img src="images/grounding_dino.png" alt="Yolo Im">
+</p>
+
+
+
 #### Annotations
 The annotations of the datasets we used are not very compatible with GroundingDINO and SAM. The annotations are small boxes which fit well with the detection style of YOLO and are seemingly annotated with that in mind.
 However, we had trouble getting GroundingDINO to get a similar detection style, simply because it does not use the same grid system that YOLO uses, and the textual prompts trying to isolate some areas do not work well all the time.
@@ -165,15 +256,16 @@ To make sure that the datasets were useful for both sides, we manually annotated
 For this annotation procedure we used labelme (the package can be installed through pip), and manually annotated boxes that would fit GroundingDINOs detection style.
 Some examples of this annotation can be seen below:
 
-<p align="center">
-<img src='pics/annotation_example_1.png' width='300'>
-<img src='pics/annotation_example_2.png' width='300'>
-<p >
+<div align="center">
+<img src='pics/annotation_example_1.png' style='width:250px; height:250px; object-fit:cover;'>
+<img src='pics/annotation_example_2.png' style='width:250px; height:250px; object-fit:cover;'>
+</div>
 
-<p align="center">
-<img src='pics/annotation_example_3.png' width='300'>
-<img src='pics/annotation_example_4.png' width='300'>
-<p >
+<div align="center">
+<img src='pics/annotation_example_3.png' style='width:250px; height:250px; object-fit:cover;'>
+<img src='pics/annotation_example_4.png' style='width:250px; height:250px; object-fit:cover;'>
+</div>
+
 
 #### Training
 
