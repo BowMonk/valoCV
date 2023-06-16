@@ -458,9 +458,9 @@ or confidence of 0.5.
 
 The graphs below show the precision recall , Recall-confidence , precision-confidence  and f1-confidence curves.
 
-| ![R_curve](Yolo/yolov5/runs/train/exp11/R_curve.png) | ![PR_curve](Yolo/yolov5/runs/train/exp11/PR_curve.png) |
-|:---:|:---:|
-| ![P_curve](Yolo/yolov5/runs/train/exp11/P_curve.png) | ![F1_curve](Yolo/yolov5/runs/train/exp11/F1_curve.png) |
+| ![R_curve](images/metrics/R_curve.png) | ![PR_curve](images/metrics/PR_curve.png) |
+|:--------------------------------------:|:----------------------------------------:|
+| ![P_curve](images/metrics/P_curve.png) | ![F1_curve](images/metrics/F1_curve.png) |
 
 
 
