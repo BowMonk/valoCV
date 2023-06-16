@@ -298,7 +298,7 @@ pipeline to ensure optimal performance of the model on the task at hand.
 ### GroundingDINO and SAM
 
 <p align="center">
-  <img src="images/grounding_dino.png" alt="Yolo Im">
+  <img src="images/grounding_dino.png" alt="Grounding Dino">
 </p>
 
 
@@ -406,7 +406,12 @@ The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated
 for the boxes (the rest of the annotation took a considerable amount of time). 
 
 
-<iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
+<div style="position:relative;width:fit-content;height:fit-content;">
+            <a style="position:absolute;top:20px;right:1rem;opacity:0.8;" href="https://clipchamp.com/watch/mpzngBMAgzz?utm_source=embed&utm_medium=embed&utm_campaign=watch">
+                <img style="height:22px;" src="https://clipchamp.com/e.svg" alt="Made with Clipchamp" />
+            </a>
+            <iframe allow="autoplay;" allowfullscreen style="border:none" src="https://clipchamp.com/watch/mpzngBMAgzz/embed" width="640" height="360"></iframe>
+        </div>
 
 
 ## Tags
