@@ -473,7 +473,27 @@ online performance on dataset 4.
 
 ##### Offline performance
 
-Table I
+###### Sample Predictions 
+
+
+In the pictures below you can see some examples of the annotations (on the left) and predictions of DINO + masking of SAM(on the right).
+
+| ![Image 1](pics/result_anno_1.jpg) | ![Image 2](pics/result_pred_1.jpg) |
+|:----------------------------------:|:----------------------------------:|
+| ![Image 3](pics/result_anno_2.jpg) | ![Image 4](pics/result_pred_2.jpg) |
+
+Although it may seem not too bad at first glance, there are quite some odd cases with DINO.
+
+| ![Image 1](pics/dino_mess_1.jpg) | ![Image 1](pics/dino_mess_2.jpg) |
+|:--------------------------------:|:--------------------------------:|
+| ![Image 1](pics/dino_mess_3.jpg) | ![Image 1](pics/dino_mess_4.jpg) | 
+
+As can be seen on the pictures, sometimes the head (marked red in the first picture) is the same as the entire body, might 
+be part of the map, can include the entire torso, or even be part of the gun that the player is holding.
+
+###### Metrics 
+
+Table II
 
 |    Class    |   MAP   |   AP    | Recall  | Precision | F1_Score |
 |:-----------:|:-------:|:-------:|:-------:|:---------:|:--------:|
@@ -485,16 +505,6 @@ DINO was much better at detecting the general body, which is understandable as t
 harder to detect due to the smaller amount of pixels.
 The model in general has low recall but higher precision, while overall not a great performance, much less than we expected.
 
-In the pictures below you can see some examples of the annotations (on the left) and predictions of DINO + masking of SAM(on the right).
-<p align="center">
-<img src='pics/result_anno_1.jpg' width='300'>
-<img src='pics/result_pred_1.jpg' width='300'>
-<p >
-
-<p align="center">
-<img src='pics/result_anno_2.jpg' width='300'>
-<img src='pics/result_pred_2.jpg' width='300'>
-<p >
 
 ##### Online performance
 
