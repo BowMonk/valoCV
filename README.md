@@ -4,7 +4,7 @@
 Arbër Demi 5073227
 Akash Amalan 4682505
 
-## Introduction
+### Introduction
 
 Aim bots, an intersection of artificial intelligence (AI) and gaming, represent an intriguing area of study. Their study unveils innovative algorithms, novel training methodologies, and enhanced performance in intricate gaming environments. On a different note, the use of aim bots often leads to unfair gaming practices, which prompts the necessity of exploring this domain to ensure ethical gaming experiences.
 
@@ -12,7 +12,7 @@ Existing solutions for automated gameplay primarily rely on metadata acquired di
 
 We chose Valorant, a popular first-person shooter game by Riot Games, as our testbed due to its dynamic environment and vast user base. Our model targets enemy heads and bodies to evaluate its performance.
 
-## Methodology
+### Methodology
 
 
 Our prime objective is to examine how the combined SAM+GroundingDINO model stacks up against the traditional YOLO model. SAM, an object segmentation model developed by Meta, coupled with GroundingDINO, a zero-shot object detection model, is a promising combination. We hypothesize that this could provide improved accuracy and robust behavior masking for vision-based bots.
@@ -131,11 +131,7 @@ Do note that all these datasets contain different labels with different quality 
 
 <h2 align="center">Dataset 4</h2>
 
-Our final dataset is a video that showcases the performance of real-time detection in action. 
-This video features a streamer (TenZ) practicing in the in-game shooting range. 
-In this scenario, enemies spawn in rapid succession and must be neutralized before they disappear. Do note that
-we chose not to use in game stream where the enemies use special abilities as the models will not be trained to detect
-these.
+Our final dataset is a video that showcases the performance of real-time detection in action. This video features a streamer (TenZ) practicing in the in-game shooting range. In this scenario, enemies spawn in rapid succession and must be neutralized before they disappear.
 
 <p align="center">
 <img src='pics/video_example.jpg' width='600'>
@@ -154,15 +150,25 @@ The use of these points will be detailed further in the online evaluation sectio
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
 of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
 
-### Yolo
+## Yolo
 
-YOLO (You Only Look Once) is nothing short of a revolution in computer vision, boasting high efficiency and accuracy in real-time object detection. It's unique, game-changing approach abandons the traditional method of considering multiple regions for potential objects, which can be slow and resource-heavy.
+YOLO, short for "You Only Look Once," has revolutionized the field of computer vision with its state-of-the-art, real-time object detection system. Its unique approach to processing images in a single forward pass while achieving high accuracy has positioned it as a frontrunner for object detection tasks.
 
-Instead, YOLO simplifies object detection into a single step process. It partitions the image into a grid, assigning each cell the task of predicting bounding boxes and class probabilities. This streamlined approach results in significant speed gains, all the while maintaining excellent detection performance.
+The principle underlying YOLO is refreshingly simple. Traditional object detection systems propose multiple regions within an image as potential objects and classify them independently. This method, while effective, can be computationally taxing and slow. YOLO, however, transforms this task into a single regression problem. It divides the image into a grid and assigns each cell within this grid the responsibility of predicting a defined number of bounding boxes and class probabilities.
 
-The YOLO model, consisting of convolutional layers followed by fully connected layers, processes the entire image in one go during training. This holistic processing allows YOLO to grasp contextual information about classes and appearances, providing it a superior edge in detecting various sized objects in diverse settings. With each new version, YOLO continues to refine its architecture, resulting in an ever-evolving system that's both faster and more accurate.
+Each cell within the grid predicts multiple bounding boxes and their associated confidence scores. These scores reflect both the model's confidence in the presence of an object within the box and the accuracy of the predicted box. Each bounding box is characterized by five predictions: x, y, w, h, and confidence. The coordinates (x, y) denote the center of the box relative to the grid cell's boundaries, while width (w) and height (h) are predicted relative to the entire image. The confidence prediction denotes the Intersection over Union (IoU) between the predicted box and any ground truth box.
 
-#### YOLO Versions and Variants: Choosing the Right One for Our Project
+Simultaneously, each grid cell predicts conditional class probabilities for each class. The conditional class probability is the probability of a detected object belonging to a particular class. The final score for each bounding box is computed as the product of the box's confidence and the conditional class probability. Any bounding box with a final score below a certain threshold is discarded. Through this unified detection scheme, YOLO achieves significant speed while maintaining competitive object detection performance, eliminating the need for various pre-processing stages and establishing a highly effective and efficient method for object detection.
+
+The YOLO architecture is an ensemble of simplicity and effectiveness. It employs a single Convolutional Neural Network (CNN) that processes an entire image as input and predicts bounding boxes and class probabilities directly from the image in a single pass. The backbone of this network consists of 24 convolutional layers followed by 2 fully connected layers. Inspired by the GoogLeNet model for image classification, YOLO replaces the inception modules used in GoogleNet with straightforward 1x1 reduction layers followed by 3x3 convolutional layers. The earlier layers of the network function like a conventional CNN, ending with fully connected layers that serve as a classifier.
+
+The final output from the YOLO architecture is a tensor of shape (S, S, B*5 + C), where S x S represents the number of grid cells the image is divided into, B stands for the number of bounding boxes each cell predicts, and C signifies the number of classes. For each bounding box, the model outputs five properties: x, y coordinates of the box center, width and height of the box, and a confidence score.
+
+An intriguing aspect of YOLO's architecture is that it processes the entire image during the training phase. This approach allows YOLO to implicitly encode contextual information about classes and their appearance, equipping it with superior capabilities when detecting objects of varying sizes and settings, thereby enhancing its generalization ability over numerous object detection models.
+
+In its newer versions, YOLO's architecture has been improved to incorporate features like skip connections and upsampling. These features assist in detecting smaller objects. The final layer now also utilizes anchor boxes to refine bounding box predictions for objects of diverse shapes. Consequently, each version of YOLO continues to evolve and improve on its architecture, making it both faster and more accurate.
+
+### YOLO Versions and Variants: Choosing the Right One for Our Project
 
 Navigating through the diverse landscape of object detection algorithms, one cannot miss the dynamism and robustness of YOLO (You Only Look Once)[1]. Known for its speedy real-time inference, YOLO has seen multiple iterations, each carving a niche for itself with unique capabilities and optimizations.
 
@@ -303,17 +309,24 @@ pipeline to ensure optimal performance of the model on the task at hand.
 
 ---
 
-### GroundingDINO and SAM
+### GroundingDINO and SAM [2][3]
 
 <p align="center">
-  <img src="images/grounding_dino.png" alt="Grounding Dino">
+  <img src="pics/dino_arch.png" alt="Yolo Im">
 </p>
 
-
-
-
 #### Description
+GroundingDINO is a novel zero-shot object detection model that has great performance in existing datasets.
+It is a combination of many different sections coming together to make a great framework mainly used for annotation
+and segmentation, in conjunction with SAM.
 
+SAM(Segment Anything Model) is a recent AI model developed by Meta. It focuses on image segmentation
+and in conjunction with GroundingDINO, it makes for a nice pipeline to detect and create masks for objects 
+in view.
+
+For more information on this specific use case of GroundingDINO and SAM, this Medium article does a great job at giving 
+more information: https://pub.towardsai.net/grounding-dino-achieving-sota-zero-shot-learning-object-detection-78388d6842ed.
+It is also the source of the architecture image shown above.
 #### Annotations
 The annotations of the datasets we used are not very compatible with GroundingDINO and SAM. The annotations are small boxes which fit well with the detection style of YOLO and are seemingly annotated with that in mind.
 However, we had trouble getting GroundingDINO to get a similar detection style, simply because it does not use the same grid system that YOLO uses, and the textual prompts trying to isolate some areas do not work well all the time.
@@ -334,6 +347,8 @@ Some examples of this annotation can be seen below:
 <img src='pics/annotation_example_4.png' height='200'>
 <p>
 
+To make the annotations usable for training and evaluation, they had to be converted to a format that we were already using.
+The steps shown at https://github.com/Tony607/labelme2coco were followed to turn the annotations into COCO data formatted JSON.
 #### Training
 
 As GroundingDINO is fairly new (March 2023), the training pipeline for it is not released yet. With the resources
@@ -349,7 +364,7 @@ unclear.
 The biggest influence when it comes to detection was coming from the text and box confidence threshold parameters.
 These are passed to the model before it does detections to decide what is good enough as a detection. How we decided
 on what is a best threshold was with a simple search with MAP evaluation on the first dataset (the best performing thresholds were chosen).
-This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresolds higher than 0.45 were eliminating too many clear cases)
+This search was done using different combinations of box and text thresholds, with a range from 0.05 to 0.45 (thresholds higher than 0.45 were eliminating too many clear cases)
 In the end, the best performing cases were around 0.4 to 0.45, however there were many more cases with no detections.
 So instead we settled on 0.35 for both with an MAP of 0.803, as it detected nearly all cases.
 
@@ -470,6 +485,17 @@ DINO was much better at detecting the general body, which is understandable as t
 harder to detect due to the smaller amount of pixels.
 The model in general has low recall but higher precision, while overall not a great performance, much less than we expected.
 
+In the pictures below you can see some examples of the annotations (on the left) and predictions of DINO + masking of SAM(on the right).
+<p align="center">
+<img src='pics/result_anno_1.jpg' width='300'>
+<img src='pics/result_pred_1.jpg' width='300'>
+<p >
+
+<p align="center">
+<img src='pics/result_anno_2.jpg' width='300'>
+<img src='pics/result_pred_2.jpg' width='300'>
+<p >
+
 ##### Online performance
 
 When it comes to online performance, our main measure is delay during the real-time detection.
@@ -477,18 +503,64 @@ When it comes to online performance, our main measure is delay during the real-t
 Sadly, GroundingDINO and SAM performed quite poorly.
 The average delay of detecting object per frame was around 1.11202 seconds. That is a very long time, even for a 30 FPS video.
 In a real gaming environment, FPS in shooter games is quite important, and having a bot that can shoot every 65 frames or so
-if the gaming is running at 60 FPS, is quite bad.
+if the gaming is running at 60 FPS, is quite bad. This performance was slightly improved when SAM was taken out of the picture,
+however DINO on its own was still slow.
 
 Despite this, when it comes to accuracy it performed similarly to the offline setting in general accuracy, having difficulty 
 with the Head class and consistently detecting the Person/Body class with a slight boost, due to less distance from the 
 camera to the enemies in the shooting range.
 
 The exact values for MAP, AP, Recall, Precision and F1_Score were not calculated due to the video not having any annotations
-for the boxes (the rest of the annotation took a considerable amount of time). 
+for the boxes (the rest of the annotation took a considerable amount of time).
 
 
 
+## Discussion
+
+The results we got from this study were not what we were expecting, however we do believe to have shown some clear differences between 
+GroundingDINO + SAM and YOLO. 
+
+Although we expected GroundingDINO to perform worse in the task of object detection due to the inability to train it properly compared to 
+YOLO, we did not expect the issues with real-time detection spawning from the computational demands it has. 
+Because of the slow speed, it cannot be properly used for real-time object detection in the context of first-person shooters (running on single GPUs).
+
+However, there could be other factors that have affected the speed of the computations.
 https://github.com/BowMonk/valoCV/assets/43303509/75a7e672-ddf6-4640-8ebc-c43cddbb9a60
+
+We did not tinker much with the extra operations that GroundingDINO is doing under the hood, as the model is quite complex and would require
+quite some time to properly change.
+For a proper application of this, DINO+SAM could be running on multiple GPUs, however that seems quite an investment for something that could 
+be achieved through other models(YOLO) with more accuracy and speed. 
+
+We tried to make the procedure of annotation readings (for the dots) as fast as possible to reduce load, however we noticed that it did not affect
+the overall speed, as on its own it ran with no visible delay.
+
+In the end, YOLO seems to remain the most efficient way to conduct real-time object detection, and specifically in first person shooters.
+
+### Future work and things we couldn't wrap up
+
+The main thing we were hoping would separate DINO+SAM from YOLO, would be the use of the segmentation masks from SAM to create some noise in 
+the aiming input of a bot. This would make the aiming feel more natural, as current metadata scraping bots are quite "robotic" in their actions.
+With the possibility of using the bounds of the segmentation mask as constraints for noise distribution edges, this could create some more "believable" bots.
+
+However, seeing the performance of DINO, we are unable to properly make do this study, as it would take a long time to analyse the difference between a point
+and click approach, and a noise addition through the proposed pipeline.
+
+
+Throughout this study we have however come up with a (possibly) better suggestion that fits the use case of all the mentioned models better.
+We could use GroundingDINO for automatic annotation of data, which will then be used to train YOLO for increased object detection performance, and later adapting SAM to work with
+the object detections from YOLO instead.
+
+The segmentation masks should work the same, however the textual prompt functionality that works so well with DINO might not be a possibility anymore.
+
+
+
+
+
+
+<video src="https://github.com/BowMonk/valoCV/assets/43303509/8bfb4fc6-93cc-4cf3-8456-eaefb237198f" controls="autoplay loop" style="max-width: 730px;">
+</video>
+
 
 
 ## Tags
