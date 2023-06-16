@@ -488,7 +488,7 @@ accuracy was also calculated by checking if the ground truth was inside the pred
 is not only fast but also very accurate. Similarly, recall and precision was also 1 since it was able to completely predict the ground truth.
 
 The following gif shows you the performance of Yolo on the video of dataset 4 loaded as a stream:
-![Online Performace](yolo/live_yolo.gif)
+![Online Performace](live_yolo.gif)
 
 #### GroundingDINO and SAM
 
