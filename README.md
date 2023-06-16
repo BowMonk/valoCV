@@ -27,7 +27,18 @@ In the following sections, we will detail how these datasets were utilized for t
 
 
 #### Datasets
-Do note that all these datasets contain different labels with different quality of images. Here are some random examples of all 3 datasets that was used to train Yolo
+Each dataset comes with a training set, validation set, and testing set. The images are provided in JPEG format, while the labels for each set are stored in separate text files. 
+
+The label format is as follows:
+
+`2 0.234375 0.47716346153846156 0.03125 0.040865384615384616`
+
+`1 0.2644230769230769 0.5685096153846154 0.08173076923076923 0.11298076923076923`
+
+Here, the first integer indicates the class, and the rest of the numbers represent the coordinates of the bounding box. Each label set thus provides crucial information for the models to correctly identify and locate the objects within the images.
+the first integer represents the class and the rest of the coordinates of the bounding box. 
+
+Do note that all these datasets contain different labels with different quality of images. Here are some random examples of all 3 datasets.
 
 <h2 align="center">Dataset 1</h2>
 <div align="center">
@@ -108,9 +119,41 @@ Do note that all these datasets contain different labels with different quality 
 </div>
 
 It is apparent that dataset 1 has high quality images while dataset 2 and 3 has low quality in-game images. One can decide to remove some of the images
-of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM.
+of dataset 1 and 2 due to its resolution. However, we approach this differently for both Yolo and GroundingDino with SIEM as we will explain in the next sections.
 
-### Yolo
+### YOLO Versions and Variants: Choosing the Right One for Our Project
+
+Navigating through the diverse landscape of object detection algorithms, one cannot miss the dynamism and robustness of YOLO (You Only Look Once)[1]. Known for its speedy real-time inference, YOLO has seen multiple iterations, each carving a niche for itself with unique capabilities and optimizations.
+
+The spotlight often falls on YOLOv3, a common choice among researchers and developers alike. However, the YOLO universe doesn't stop there. The emergence of newer versions like YOLOv7 and YOLOv8 underscores continuous innovations in the pursuit of faster and more efficient real-time object detection[^1^].
+
+For this project, our journey led us to YOLOv5, an intriguing balance between performance and computational resource consumption. But the YOLOv5 story isn't one-size-fits-all, with different variants ('s', 'm', 'l', and 'x') offering a spectrum of speed and accuracy trade-offs[^2^].
+
+- The 's' variant, being the smallest and fastest, tempts with high speed but at the expense of accuracy.
+- The 'm' variant, our chosen companion for this endeavor, strikes a harmonious balance between speed and accuracy.
+- The 'l' and 'x' variants, on the other end of the spectrum, offer higher accuracy but at the cost of slower inference speed.
+
+The choice of the 'm' model wasn't random[2]. It emerged as the optimal solution considering:
+
+1. **Computational Resources**: The 'm' variant adeptly balances computational efficiency and accuracy. While the 'l' and 'x' could have offered higher accuracy, their larger computational appetite wouldn't fit the bill for our use-case.
+2. **Real-Time Performance**: With our application deeply rooted in the fast-paced dynamics of Valorant gameplay, maintaining real-time performance was paramount. The 'm' variant checked this box effectively.
+3. **Dataset Complexity**: Our datasets brought with them their own set of challenges, with varying complexities and quality. The 'm' model showcased its robustness in handling diverse image resolutions and noise levels.
+
+Remember, the choice of the model variant significantly hinges on your specific use case and available resources. If your priority is high accuracy and computational resources aren't a constraint, the larger 'l' or 'x' models might just be your ideal match. However, for this project, 'm' proved to be our optimal partner.
+
+## Training and Validation: Harmonizing Datasets and Embracing Diversity
+
+For training YOLO, we utilized three distinct datasets, each with its unique characteristics but adhering to a consistent format. The quality of images within these datasets varied, as did the labels they utilized.
+
+All datasets encompassed `EnemyHead` and `EnemyBody` labels, which were our primary focus for this study. However, they also contained additional labels such as `BoomBot` and other game-specific abilities. These extra labels, although interesting, did not align directly with our current objective.
+
+To achieve a streamlined training process, we undertook the task of re-labeling these datasets. This harmonization allowed us to align the data more closely with our goal. We adopted the following label convention: `['boomybot', 'enemyBody', 'enemyHead', 'smoke', 'splat', 'teammate', 'walledoff enemy']`. This decision was guided by the inner workings of YOLO.
+
+YOLO operates based on class predictions rather than class names, translating our meticulously chosen labels into a plain numerical list: `[0, 1, 2, 3, 4, 5, 6, 7]`. Through our re-labeling effort, we ensured that every class number correctly corresponded to its respective label across all datasets.
+
+One might question our decision to use a wide range of image qualities, rather than solely high-resolution images or curating a pruned selection. The answer lies in the trade-off between quality and diversity. Incorporating images of varying quality level challenged YOLO's ability to interpret images under different conditions. 
+This not only enriched our training data but also aimed to enhance YOLO's generalization performance on the test set,
+crafting a more robust model ready to tackle different angles one might encounter in Valorant.
 
 
 
